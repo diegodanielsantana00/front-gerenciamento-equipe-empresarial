@@ -1,23 +1,25 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { HttpClientModule } from '@angular/common/http'; 
 import { AppComponent } from './app.component';
-import { AppRoutingModule } from './app-routing.module';
-import { LoginComponent } from './ui/pages/login/login.component';
-import { RegisterComponent } from './ui/pages/register/register.component';
-import { FormsModule } from '@angular/forms';
+import { CoreModule } from './core/core.module';
+import { SharedModule } from './shared/shared.module';
+import { AppRoutingModule } from './app.routes';
+import { FeaturesModule } from './features/features.module';
 
 @NgModule({
   declarations: [
     AppComponent,
-    LoginComponent,
-    RegisterComponent,
   ],
   imports: [
-    BrowserModule,
+    BrowserModule, // Módulo necessário para aplicações web
+    HttpClientModule,
     AppRoutingModule,
-    FormsModule,
+    CoreModule,
+    SharedModule,
+    FeaturesModule, 
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
