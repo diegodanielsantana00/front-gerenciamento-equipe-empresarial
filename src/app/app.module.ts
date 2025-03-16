@@ -7,19 +7,21 @@ import { SharedModule } from './shared/shared.module';
 import { AppRoutingModule } from './app.routes';
 import { FeaturesModule } from './features/features.module';
 import { FormsModule } from '@angular/forms'; 
+import { CommonModule } from '@angular/common';
 
 @NgModule({
   declarations: [
-    AppComponent,
+    AppComponent
   ],
   imports: [
+    FormsModule,
+    CommonModule,
     BrowserModule,
-    HttpClientModule,
     AppRoutingModule,
     CoreModule,
     SharedModule,
     FeaturesModule, 
-    FormsModule
+    
   ],
   providers: [],
   bootstrap: [AppComponent],
