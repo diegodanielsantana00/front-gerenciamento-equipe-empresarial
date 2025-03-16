@@ -6,18 +6,20 @@ import { CoreModule } from './core/core.module';
 import { SharedModule } from './shared/shared.module';
 import { AppRoutingModule } from './app.routes';
 import { FeaturesModule } from './features/features.module';
+import { FormsModule } from '@angular/forms'; 
 
 @NgModule({
   declarations: [
     AppComponent,
   ],
   imports: [
-    BrowserModule, // Módulo necessário para aplicações web
+    BrowserModule,
     HttpClientModule,
     AppRoutingModule,
     CoreModule,
     SharedModule,
     FeaturesModule, 
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent],
