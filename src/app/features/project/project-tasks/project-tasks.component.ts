@@ -23,11 +23,16 @@ export class ProjectTasksComponent {
   isModalOpenTask = false;
   status: any[] = [];
   users: any[] = [];
+  tasks: any[] = [];
   projectName = '';
   errorMessage = '';
   statusName = '';
   statusOrder = '';
   projectIdSave = 0;
+  filterStatus = -1;
+  filterOrderBy = 1;
+  filterPage = 1;
+  AllPage = 1;
   
   task = {
     id: 0,
@@ -52,11 +57,24 @@ export class ProjectTasksComponent {
     this.route.paramMap.subscribe(params => {
       const projectId = params.get('idproject');
       if (projectId) {
-        this.task.project = Number(projectId);
-        this.projectIdSave = Number(projectId)
-        this.getAllStatusByProject(Number(projectId));
-        this.GetAllUsersByProject(Number(projectId));
+          this.task.project = Number(projectId);
+          this.projectIdSave = Number(projectId)
+          this.getAllStatusByProject(Number(projectId));
+          this.GetAllUsersByProject(Number(projectId));
+          this.GetAllTasks(Number(projectId));
         }
+    });
+  }
+
+  GetAllTasks(id: number) {
+    this.taskAppService.GetAllTasks(id, this.filterStatus, this.filterOrderBy, this.filterPage).subscribe({
+      next: (response) => {
+        console.log(response)
+        this.tasks = response.tasks
+      },
+      error: () => {
+        // this.errorMessage = 'Ocorreu um erro ao pegar o cadastro!';
+      }
     });
   }
 
@@ -71,6 +89,7 @@ export class ProjectTasksComponent {
       }
     });
   }
+
   GetAllUsersByProject(id: number) {
     this.userService.GetAllUsersByProject(id).subscribe({
       next: (response) => {
@@ -94,6 +113,17 @@ export class ProjectTasksComponent {
   }
 
   openModalTask() {
+    this.task = {
+      id: 0,
+      name: '',
+      title: '',
+      project: 0,
+      description: '',
+      storyPoints: 0,
+      userResponsible: 0,
+      statusTask: 0,
+      priorityTask: 0
+    };
     this.isModalOpenTask = true;
   }
 
@@ -101,13 +131,25 @@ export class ProjectTasksComponent {
     this.isModalOpenTask = false;
   }
 
+  deleteTask(idTask: number) {
+    this.taskAppService.Delete(idTask).subscribe({
+      next: () => {
+        this.GetAllTasks(this.projectIdSave)
+      },
+      error: () => {
+        // this.errorMessage = 'Ocorreu um erro ao pegar o cadastro!';
+      }
+    });
+  }
+
+  
   
   
   submitFormTask() {
     this.taskAppService.createOrUpdate(this.task).subscribe({
       next: () => {
         console.log('Tarefa cadastrada:', this.projectName);
-        // this.getAllStatusByProject(this.projectIdSave);
+        this.GetAllTasks(this.projectIdSave)
         this.closeModalTask();
       },
       error: () => {
