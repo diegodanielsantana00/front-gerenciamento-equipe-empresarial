@@ -24,4 +24,17 @@ export class UserService {
       })
     );
   }
+
+  GetAllUsersByProject(idProject: number): Observable<any> {
+    const token = localStorage.getItem('userToken');
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+
+    return this.http.get<any>(this.apiUrl + "/api/user/GetAllUsersByProject?idProject=" + idProject, { headers }).pipe(
+      tap(response => {
+        if (response.success) {
+          return response.users;
+        }
+      })
+    );
+  }
 }

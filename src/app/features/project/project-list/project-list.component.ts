@@ -35,9 +35,9 @@ export class ProjectListComponent {
   getProjects() {
     this.projectService.getProjects().subscribe({
       next: (response) => {
-        this.projectList = response.projects.result
+        console.log(response.projects)
+        this.projectList = response.projects
         this.closeModal();
-
       },
       error: () => {
         // this.errorMessage = 'Ocorreu um erro ao pegar o cadastro!';
