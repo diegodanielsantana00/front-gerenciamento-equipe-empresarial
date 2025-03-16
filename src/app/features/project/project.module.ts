@@ -5,6 +5,7 @@ import { ProjectListComponent } from './project-list/project-list.component';
 import { ProjectTasksComponent } from './project-tasks/project-tasks.component';
 import { TaskDetailsComponent } from './task-details/task-details.component';
 import { ProjectConfigComponent } from './project-config/project-config.component';
+import { BrowserModule } from '@angular/platform-browser';
 
 
 @NgModule({
@@ -13,6 +14,8 @@ import { ProjectConfigComponent } from './project-config/project-config.componen
   ],
   imports: [
     CommonModule,
+    BrowserModule
+
   ]
 })
 export class ProjectModule { }
