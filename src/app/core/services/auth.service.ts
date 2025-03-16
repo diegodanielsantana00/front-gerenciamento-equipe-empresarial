@@ -50,7 +50,6 @@ export class AuthService {
   logout() {
     localStorage.removeItem('userToken');
     localStorage.removeItem('tokenExp');
-    this.router.navigate(['/login']);
   }
 
   isAuthenticated(): boolean {
